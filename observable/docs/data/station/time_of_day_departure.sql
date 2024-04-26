@@ -1,6 +1,6 @@
 SELECT
-    round(avg(s1.departure_delay)) as delay_s,
-    (extract(dow from s1.departure) + 6) % 7 as dow,
+    round(avg(s1.departure_delay)) as value,
+    (extract(dow from s1.departure) + 6) % 7 as day,
     extract(hour from s1.departure) as hour
 
 FROM
@@ -9,4 +9,4 @@ FROM
 WHERE s1.station_id = 455
   AND s1.departure_delay NOTNULL
 
-GROUP BY dow, hour;
+GROUP BY day, hour;

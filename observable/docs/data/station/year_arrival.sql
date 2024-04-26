@@ -1,5 +1,5 @@
 SELECT
-    round(avg(s1.arrival_delay)) as delay_s,
+    round(avg(s1.arrival_delay)) as delay,
     extract(day from s1.arrival) as day,
     extract(month from s1.arrival) as month
 

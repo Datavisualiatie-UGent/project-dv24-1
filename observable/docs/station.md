@@ -1,115 +1,20 @@
 ```js
-const div = document.createElement("div");
-div.style ="height: 250px; margin: 20px 0"
+import * as Graphs from "./graphs/index.js"
+import { map } from "./components/map.js"
 
-const map = L.map(div)
-  .setView([51.03551971701421, 3.710101315832923], 13);
+let trains = await FileAttachment("data/station/trainlines.csv")
+    .csv({typed: true});
 
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
+let arrivalsData = await FileAttachment("data/station/time_of_day_arrival.csv")
+    .csv({typed: true});
 
-L.marker([51.03551971701421, 3.710101315832923])
-  .addTo(map)
-```
-
-```js
-let arrivalsData = await FileAttachment("data/station/time_of_day_arrival.csv").csv({typed: true});
-let departuresData = await FileAttachment("data/station/time_of_day_departure.csv").csv({typed: true});
-
-const legend = [...new Array(7).keys()].map(day => {
-    return [...new Array(24).keys()].map(hour => {
-        return {
-            dow: day,
-            hour: `${hour > 9 ? "" : " "}${hour}:00`,
-            arrival: null,
-            departure: null,
-        }
-    })
-}).flat();
-
-const dayOfWeek = [
-    "Maandag",
-    "Dinsdag",
-    "Woensdag",
-    "Donderdag",
-    "Vrijdag",
-    "Zaterdag",
-    "Zondag",
-];
-
-for (const x of arrivalsData) {
-    const dow = Number.parseInt(x.dow);
-    const hour = Number.parseInt(x.hour);
-    const value = Number.parseInt(x.delay_s);
-    legend[dow * 24 + hour].arrival = value;
-}
-
-for (const x of departuresData) {
-    const dow = Number.parseInt(x.dow);
-    const hour = Number.parseInt(x.hour);
-    const value = Number.parseInt(x.delay_s);
-    legend[dow * 24 + hour].departure = value;
-}
-
-const arrivals = Plot.plot({
-    width: 500,
-    height: 1000,
-    padding: 0,
-    grid: true,
-    x: { axis: "top", label: "" },
-    y: { label: "" },
-    color: { type: "linear", scheme: "blues" },
-    marks: [
-        Plot.cell(legend, {
-            x: (d) => d.dow,
-            y: "hour",
-            fill: "arrival",
-            inset: 0.5,
-        }),
-        Plot.text(legend, {
-            x: (d) => d.dow,
-            y: "hour",
-            fill: "black",
-            title: "title",
-            text: (d) => d.arrival ? Number.parseInt(d.arrival).toFixed(0) : "",
-        })
-    ],
-});
-
-const departures = Plot.plot({
-    width: 500,
-    height: 1000,
-    padding: 0,
-    grid: true,
-    x: { axis: "top", label: "" },
-    y: { label: "" },
-    color: { type: "linear", scheme: "blues" },
-    marks: [
-        Plot.cell(legend, {
-            x: (d) => d.dow,
-            y: "hour",
-            fill: "departure",
-            inset: 0.5,
-        }),
-        Plot.text(legend, {
-            x: (d) => d.dow,
-            y: "hour",
-            fill: "black",
-            title: "title",
-            text: (d) => d.departure ? Number.parseInt(d.departure).toFixed(0) : "",
-        })
-    ],
-});
-
-function getDayByDayCount(count) {
-    var date = new Date(2023, 0);
-    date.setDate(count);
-    return date;
-}
-
+let departuresData = await FileAttachment("data/station/time_of_day_departure.csv")
+    .csv({typed: true});
 
 let ruleArrivalsData = await FileAttachment("data/station/year_arrival.csv")
+    .csv({typed: true});
+
+let distributionValues = await FileAttachment("data/station/distribution_arrival.csv")
     .csv({typed: true});
 
 ruleArrivalsData = ruleArrivalsData
@@ -117,7 +22,7 @@ ruleArrivalsData = ruleArrivalsData
         const date = new Date(2023, elem.month - 1, elem.day, 0, 0, 0, 0, 0);
         return {
             date,
-            value: elem.delay_s,
+            value: elem.delay,
         }
     });
 
@@ -129,27 +34,8 @@ ruleDepartureData = ruleDepartureData
         const date = new Date(2023, elem.month - 1, elem.day, 0, 0, 0, 0, 0);
         return {
             date,
-            value: elem.delay_s,
+            value: elem.delay,
         }
-    });
-
-const ruleArrivalsPlot = Plot
-    .ruleX(ruleArrivalsData, {x: "date", stroke: "value"})
-    .plot({
-        width: 1200,
-        height: 100,
-        color: {
-            type: "log",
-            scheme: "Blues",
-        },
-    });
-
-const ruleDeparturesPlot = Plot
-    .ruleX(ruleDepartureData, {x: "date", stroke: "value"})
-    .plot({
-        width: 1200,
-        height: 100,
-        color: { type: "log", scheme: "blues" },
     });
 ```
 
@@ -163,15 +49,15 @@ const ruleDeparturesPlot = Plot
         max-width: 100vw !important;
     }
 </style>
-```
 
-```html
 <div class="grid grid-cols-2" style="align-items: center">
    <div>
     <h1>Gent Sint-Pieters</h1>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
   </div>
-  ${div}
+    <div>
+        ${map()}
+    </div>
 </div>
 
 <div class="grid grid-cols-3">
@@ -206,13 +92,13 @@ const ruleDeparturesPlot = Plot
 <div class="card">
     <h2>Gemiddelde vertraging per dag</h2>
     <h3>In seconden bij aankomst</h3>
-    ${ruleArrivalsPlot}
+    ${Graphs.year(ruleArrivalsData)}
 </div>
 
 <div class="card">
     <h2>Gemiddelde vertraging per dag</h2>
     <h3>In seconden bij vertrek</h3>
-    ${ruleDeparturesPlot}
+    ${Graphs.year(ruleDepartureData)}
 </div>
 
 <hr />
@@ -225,43 +111,26 @@ const ruleDeparturesPlot = Plot
     <div class="card">
         <h2>Gemiddelde vertraging per uur</h2>
         <h3>In seconden bij aankomst</h3>
-        ${arrivals}
+        ${Graphs.week(arrivalsData)}
     </div>
 
     <div class="card">
         <h2>Gemiddelde vertraging per uur</h2>
         <h3>In seconden bij vertrek</h3>
-        ${departures}
+        ${Graphs.week(departuresData)}
     </div>
 </div>
-```
 
 <hr />
 
 <h2>Vertragingsdistributie</h2>
 
-```js
-let distributionValues = await FileAttachment("data/station/distribution_arrival.csv")
-    .csv({typed: true});
-
-const distribution = Plot.barY(distributionValues, {
-    x: "delay_minutes",
-    y: "count",
-    fill: "#6699ff"
-}).plot({
-    width: 1200,
-    height: 200,
-    x: { label: "Vertraging in minuten" },
-    y: { label: "Aantal treinen in percent" },
-});
-```
-
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
 
 <div class="card">
-<h2>Aantal vertragingen van bepaalde duur</h2>
-<h3>Het percentueel aantal treinen waarvan de vertraging gelijk is aan een gegeven aantal minuten.</h3>
-${distribution}
+    <h2>Aantal vertragingen van bepaalde duur</h2>
+    <h3>Het percentueel aantal treinen waarvan de vertraging gelijk is aan een gegeven aantal minuten.</h3>
+    ${Graphs.distribution(distributionValues)}
 </div>
 
 <hr />
@@ -270,41 +139,7 @@ ${distribution}
 
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
 
-```js
-let trains = await FileAttachment("data/station/trainlines.csv")
-    .csv({typed: true});
-
-
-const trainLinePlot = Plot.plot({
-    label: null,
-    width: 1200,
-    x: {
-        axis: "top",
-        label: "Vertraging in seconden",
-        labelAnchor: "center",
-    },
-    color: {
-        scheme: "blues",
-        type: "ordinal"
-    },
-    marks: [
-        Plot.barX(trains, {
-            y: "route_id",
-            x: "delay_s",
-            fill: "#6699ff",
-        }),
-        Plot.gridX({
-            stroke: "white",
-            strokeOpacity: 0.5,
-        }),
-        Plot.axisY({x: 0}),
-        Plot.ruleX([0])
-    ]
-});
-```
-
-```html
 <div class="card">
-    ${trainLinePlot}
+    ${Graphs.trainLines(trains)}
 </div>
 ```

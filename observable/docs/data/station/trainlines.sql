@@ -1,6 +1,6 @@
 SELECT
-    round(avg(s1.departure_delay)) as delay_s,
-    t.route_id
+    round(avg(s1.departure_delay)) as delay,
+    t.route_id as route
 
 FROM
     public.stops s1
@@ -15,5 +15,5 @@ GROUP BY t.route_id
 HAVING
     count(*) > 1000
 
-ORDER BY delay_s DESC
+ORDER BY delay DESC
 

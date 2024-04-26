@@ -1,6 +1,6 @@
 SELECT
-    count(round(s1.arrival_delay / 60)),
-    round(s1.arrival_delay / 60) as delay_minutes
+    count(round(s1.arrival_delay / 60)) as count,
+    round(s1.arrival_delay / 60) as delay
 
 FROM
     public.stops s1
