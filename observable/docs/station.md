@@ -2,40 +2,40 @@
 import * as Graphs from "./graphs/index.js"
 import { map } from "./components/map.js"
 
-let trains = await FileAttachment("data/station/trainlines.csv")
+const trains = await FileAttachment("data/station/GENT-ST-P/trainlines.csv")
     .csv({typed: true});
 
-let arrivalsData = await FileAttachment("data/station/time_of_day_arrival.csv")
+const arrivalsData = await FileAttachment("data/station/GENT-ST-P/time_of_day_arrival.csv")
     .csv({typed: true});
 
-let departuresData = await FileAttachment("data/station/time_of_day_departure.csv")
+const departuresData = await FileAttachment("data/station/GENT-ST-P/time_of_day_departure.csv")
     .csv({typed: true});
 
-let ruleArrivalsData = await FileAttachment("data/station/year_arrival.csv")
+const distributionValues = await FileAttachment("data/station/GENT-ST-P/distribution_arrival.csv")
     .csv({typed: true});
 
-let distributionValues = await FileAttachment("data/station/distribution_arrival.csv")
-    .csv({typed: true});
-
-ruleArrivalsData = ruleArrivalsData
-    .map(elem => {
-        const date = new Date(2023, elem.month - 1, elem.day, 0, 0, 0, 0, 0);
-        return {
-            date,
-            value: elem.delay,
-        }
+const ruleArrivalsData = await FileAttachment("data/station/GENT-ST-P/year_arrival.csv")
+    .csv({typed: true})
+    .then(data => {
+        return data.map(elem => {
+            const date = new Date(2023, elem.month - 1, elem.day, 0, 0, 0, 0, 0);
+            return {
+                date,
+                value: elem.delay,
+            }
+        });
     });
 
-let ruleDepartureData = await FileAttachment("data/station/year_departure.csv")
-    .csv({typed: true});
-
-ruleDepartureData = ruleDepartureData
-    .map(elem => {
-        const date = new Date(2023, elem.month - 1, elem.day, 0, 0, 0, 0, 0);
-        return {
-            date,
-            value: elem.delay,
-        }
+const ruleDepartureData = await FileAttachment("data/station/GENT-ST-P/year_departure.csv")
+    .csv({typed: true})
+    .then(data => {
+        return data.map(elem => {
+            const date = new Date(2023, elem.month - 1, elem.day, 0, 0, 0, 0, 0);
+            return {
+                date,
+                value: elem.delay,
+            }
+        });
     });
 ```
 
