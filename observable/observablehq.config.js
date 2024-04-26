@@ -10,9 +10,10 @@ export default {
     {
       name: "Dashboards",
       pages: [
-        { name: "Gent Sint-Pieters", path: "/station?q=GSP" },
-        { name: "Brugge", path: "/station?q=Brugge" },
-        { name: "Route", path: "/route" },
+        { name: "Algemeen", path: "/index" },
+        { name: "Gent Sint-Pieters", path: "/station/index?q=GSP" },
+        { name: "Brugge", path: "/station/index?q=Brugge" },
+        { name: "Route", path: "/route/index" },
       ]
     }
   ],

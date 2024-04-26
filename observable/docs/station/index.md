@@ -1,20 +1,20 @@
 ```js
-import * as Graphs from "./graphs/index.js"
-import { map } from "./components/map.js"
+import * as Graphs from "../graphs/index.js"
+import { map } from "../components/map.js"
 
-const trains = await FileAttachment("data/station/GENT-ST-P/trainlines.csv")
+const trains = await FileAttachment("../data/station/GENT-ST-P/trainlines.csv")
     .csv({typed: true});
 
-const arrivalsData = await FileAttachment("data/station/GENT-ST-P/time_of_day_arrival.csv")
+const arrivalsData = await FileAttachment("../data/station/GENT-ST-P/time_of_day_arrival.csv")
     .csv({typed: true});
 
-const departuresData = await FileAttachment("data/station/GENT-ST-P/time_of_day_departure.csv")
+const departuresData = await FileAttachment("../data/station/GENT-ST-P/time_of_day_departure.csv")
     .csv({typed: true});
 
-const distributionValues = await FileAttachment("data/station/GENT-ST-P/distribution_arrival.csv")
+const distributionValues = await FileAttachment("../data/station/GENT-ST-P/distribution_arrival.csv")
     .csv({typed: true});
 
-const ruleArrivalsData = await FileAttachment("data/station/GENT-ST-P/year_arrival.csv")
+const ruleArrivalsData = await FileAttachment("../data/station/GENT-ST-P/year_arrival.csv")
     .csv({typed: true})
     .then(data => {
         return data.map(elem => {
@@ -26,7 +26,7 @@ const ruleArrivalsData = await FileAttachment("data/station/GENT-ST-P/year_arriv
         });
     });
 
-const ruleDepartureData = await FileAttachment("data/station/GENT-ST-P/year_departure.csv")
+const ruleDepartureData = await FileAttachment("../data/station/GENT-ST-P/year_departure.csv")
     .csv({typed: true})
     .then(data => {
         return data.map(elem => {
