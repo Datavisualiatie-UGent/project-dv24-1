@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+    postgres:
+        image: postgres:latest
+        container_name: datavisualisatie_db
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_DB: postgres
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: "QM34aDUGA6t8MwB&VfnPy&agGRT#9^"
+        volumes:
+            - ./volumes:/var/lib/postgresql/data
