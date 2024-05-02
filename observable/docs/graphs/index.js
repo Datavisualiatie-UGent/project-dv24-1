@@ -2,7 +2,7 @@ import { trainLines } from "./trainlines.js";
 import { year } from "./year.js";
 import { week } from "./week.js";
 import { distribution } from "./distribution.js";
-import { route } from "./route.js";
+import { route, delays } from "./route.js";
 
 export {
     trainLines,
@@ -10,4 +10,5 @@ export {
     week,
     distribution,
     route,
+    delays,
 }
