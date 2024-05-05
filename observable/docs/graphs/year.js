@@ -6,8 +6,13 @@ import * as Plot from "npm:@observablehq/plot";
  * pairs.
  */
 export function year(data) {
+    /** Set String to Date. */
+    for (const elem of data) {
+        elem.date = new Date(elem.date);
+    }
+
     return Plot
-        .ruleX(data, {x: "date", stroke: "value"})
+        .ruleX(data, {x: "date", stroke: "delay"})
         .plot({
             width: 1200,
             height: 100,
