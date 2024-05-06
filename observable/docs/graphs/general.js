@@ -10,7 +10,7 @@ export function average_delays(data, info) {
         label: null,
         x: {
             axis: info ? "top" : "",
-            label: info ? "← decrease · Gemiddelde vertraging (minuten) · increase →" : null,
+            label: info ? "← Gemiddelde vertraging (minuten) →" : null,
             domain: [-5, 30],
             labelAnchor: "center",
         },
@@ -79,3 +79,18 @@ export function min_max_delays(data) {
     });
 }
 
+export function correlations(data, delay, y_domain) {
+    return Plot.plot({
+        grid: true,
+        width: 1400,
+        marginTop: 50,
+        marginBottom: 50,
+        color: {scheme: "PiYG"},
+        x: {domain: [0,500], label: "aantal trainen"},
+        y: {domain: y_domain, label: delay + " (minuten)"},
+        marks: [
+            Plot.dot(data, {x: "num_trains", y: delay, fill: true}),
+            Plot.linearRegressionY(data, {x: "num_trains", y: delay})
+        ]
+    })
+}

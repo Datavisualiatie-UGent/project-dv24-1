@@ -18,6 +18,9 @@ const min_arr_delays_csv = await FileAttachment("./data/general/min_arr_delays.c
 const max_arr_delays_csv = await FileAttachment("./data/general/max_arr_delays.csv")
     .csv({typed: true});
 
+const correlations = await FileAttachment("./data/general/correlations.csv")
+    .csv({typed: true});
+
 let size = avg_arr_delays_csv.length;
 const avg_arr_delays = avg_arr_delays_csv.slice(0,30).concat(avg_arr_delays_csv.slice(size-30));
 
@@ -99,6 +102,14 @@ Aangezien er te veel stations bestaan om allemaal te tonen, bestuderen we de der
 
 <div class="card">
     ${Graphs.min_max_delays(arr_delays)}
+</div>
+
+<h2>Gemiddelde vertragingen van stations ten opzichte van aantal treinen dat het station passseert.</h2>
+<div class="card">
+    ${Graphs.correlations(correlations, "avg_arrival_delay", [-10,30])}
+</div>
+<div class="card">
+    ${Graphs.correlations(correlations, "avg_departure_delay", [-200,1000])}
 </div>
 
 
