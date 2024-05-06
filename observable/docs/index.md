@@ -103,6 +103,7 @@ Aangezien er te veel stations bestaan om allemaal te tonen, bestuderen we de der
 <div class="card">
     ${Graphs.min_max_delays(arr_delays)}
 </div>
+<hr>
 
 <h2>Gemiddelde vertragingen van stations ten opzichte van aantal treinen dat het station passseert.</h2>
 <div class="card">

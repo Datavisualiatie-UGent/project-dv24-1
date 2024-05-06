@@ -6,7 +6,7 @@ export function average_delays(data, info) {
         width: 700,
         height: 500,
         marginLeft: 50,
-        marginTop: 30,
+        marginTop: 50,
         label: null,
         x: {
             axis: info ? "top" : "",

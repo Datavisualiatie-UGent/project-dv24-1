@@ -10,9 +10,6 @@ export function route(data) {
 }
 
 export function delays(data, stations, departures, arr_dep) {
-    console.log(data);
-    console.log(stations);
-    console.log(departures);
     return Plot.plot({
         marginLeft: 70,
         marginBottom: 80,
