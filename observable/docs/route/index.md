@@ -63,7 +63,7 @@ function getStationsCoordinates(selection, coordinates) {
 const route = view(Inputs.select(routesData, {
     label: "Selecteer route",
     format: (x) => x.route + " (" + x.start_station + " -> " + x.end_station + ")",
-    value: (x) => x.route,
+    value: (x) => x.route
 }));
 
 const datatype = view(Inputs.select([
@@ -74,6 +74,7 @@ const datatype = view(Inputs.select([
     format: (x) => x.label,
     value: (x) => x.type,
     sort: true,
+    style: "width: 200px"
 }));
 
 // get the list of stations (with their coordinates) on the route that is passed by the most amount of trains

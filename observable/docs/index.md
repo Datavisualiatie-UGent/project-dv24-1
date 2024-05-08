@@ -33,11 +33,9 @@ const min_arr_delays = Object.fromEntries(min_arr_delays_csv.map(x => [x.station
 const stations_max = max_arr_delays_csv.map(x => x.station);
 const max_arr_delays = Object.fromEntries(max_arr_delays_csv.map(x => [x.station, x.max_delay]));
 let index = 0;
-let amount = 0;
-while (amount < 200) {
+while (index < stations.length) {
     const station = stations[index].station;
     if (stations_min.includes(station) && stations_max.includes(station)) {
-        amount ++;
         const amount_min = Math.abs(min_arr_delays[station]);
         const amount_max = max_arr_delays[station];
 
@@ -86,22 +84,24 @@ Aangezien er te veel stations bestaan om allemaal te tonen, bestuderen we de der
     <div class="card">
         <p>Hier zien we de gemiddelde vertraging bij aankomst. Er zijn slechts 2 station waarbij treinen gemiddeld te vroeg aankomen.</p>
         <br>
-        ${Graphs.average_delays(avg_arr_delays.slice(0,30), true)}
+        ${Graphs.average_delays(avg_arr_delays.slice(0,30), true, 70)}
         <h1>&emsp; &emsp; &emsp; ⋮</h1>
-        ${Graphs.average_delays(avg_arr_delays.slice(30), false)}
+        ${Graphs.average_delays(avg_arr_delays.slice(30), false, 10)}
     </div>
     <div class="card">
         <p>Hier zien we de gemiddelde vertraging bij vertrek. Hier zijn er al vier treinen die in het algemeen te vroeg vertrekken.</p>
         <br>
-        ${Graphs.average_delays(avg_dep_delays.slice(0,30), true)}
+        ${Graphs.average_delays(avg_dep_delays.slice(0,30), true, 70)}
         <h1>&emsp; &emsp; &emsp; ⋮</h1>
-        ${Graphs.average_delays(avg_dep_delays.slice(30), false)}
+        ${Graphs.average_delays(avg_dep_delays.slice(30), false, 10)}
     </div>
 </div>
 
 
-<div class="card">
+<div class="card" style="overflow-x: scroll">
+  <div style="width: 10000px">
     ${Graphs.min_max_delays(arr_delays)}
+  </div>
 </div>
 <hr>
 
