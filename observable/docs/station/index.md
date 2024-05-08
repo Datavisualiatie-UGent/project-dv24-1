@@ -1,26 +1,8 @@
 ```js
 import * as Graphs from "../graphs/index.js"
+```
 
-function map(lat, lon) {
-    document.getElementById("map")?.remove();
-    const div = display(document.createElement("div"));
-    div.id = "map";
-    div.style = "height: 400px;";
-
-    const map = L.map(div)
-        .setView([lat, lon], 13);
-
-    L.tileLayer("https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=c7fafa75876f453cb4b6830b32b67d5f", {
-        attribution: false,
-    })
-        .addTo(map);
-
-    L.marker([lat, lon])
-        .addTo(map)
-        .bindPopup("A nice popup<br> indicating a point of interest.")
-        .openPopup();
-}
-
+```js
 /*
  * Combined data for the station.
  */
@@ -49,28 +31,9 @@ const generalData = await FileAttachment("../data/station/general.csv")
         });
         return result;
     });
+```
 
-/**
- * Datafilters selected by the user.
- */
-const station = view(Inputs.select(stationData, {
-    label: "Select Station",
-    format: (x) => x.name,
-    value: (x) => x.id,
-}));
-
-const datatype = view(Inputs.select([
-    { type: "ARRIVAL_DELAY", label: "Vertraging bij aankomst" },
-    { type: "DEPARTURE_DELAY", label: "Vertraging bij vertrek" },
-    { type: "ADDITIONAL_DELAY", label: "Toegevoegde vertraging" },
-    { type: "REDUCED_DELAY", label: "Gewonnen tijd"}
-], {
-    label: "Dataselectie",
-    format: (x) => x.label,
-    value: (x) => x.type,
-    sort: true,
-}));
-
+```js
 /*
  * Ready-for-use filtered data getters.
  */ 
@@ -216,52 +179,112 @@ function getTrainLines(station, datatype) {
 
 ```html
 <style>
-    #observablehq-center {
-        padding: 0 !important;
+    .navbar {
+        position: sticky;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 15px 0;
+        background-color: rgb(255, 255, 255);
     }
 
-    p {
-        max-width: 100vw !important;
+    .grow {
+        flex-grow: 1;
     }
 </style>
+```
 
-<div>
-    ${map(station.latitude, station.longitude)}
-    <h1>${station.name}</h1>
-</div>
 
-<div class="grid grid-cols-3">
-  <div class="card">
-    <h2>Gemiddelde vertraging</h2>
-    <h3>${Math.round(generalData.get(station.id)["avg_arrival_delay_s"])} seconden bij aankomst, ${Math.round(generalData.get(station.id)["avg_departure_delay_s"])} seconden bij vertrek.</h3>
-  </div>
-  <div class="card">
-      <h2>Totale vertraging</h2>
-      <h3>${Math.round(generalData.get(station.id)["sum_arrival_delay_s"] / 3600)} uren bij aankomst, ${Math.round(generalData.get(station.id)["sum_departure_delay_s"] / 3600)} uren bij vertrek.</h3>
-  </div>
-    <div class="card">
-        <h2>Aantal treinen</h2>
-        <h3>${generalData.get(station.id)["arrival_count"]} aankomsten, ${generalData.get(station.id)["departure_count"]} vertrekken.</h3>
-    </div>
-  <div class="card">
-      <h2>Efficiëntie</h2>
-      <h3>Treinen winnen gemiddeld ${Math.round(generalData.get(station.id)["avg_time_saving_s"])} seconden.</h3>
-  </div>
-    <div class="card">
-        <h2>Efficiëntie</h2>
-        <h3>Treinen wonnen in totaal ${Math.round(generalData.get(station.id)["sum_time_saving_s"] / 3600)} uren.</h3>
-    </div>
-  <div class="card">
-      <h2>Afgelaste treinen</h2>
-      <h3>#TODO treinen</h3>
-  </div>
-</div>
+```html
+<h1>Stations</h1>
+<p>Deze pagina biedt een detailweergave over de vertragingscijfers voor een specifiek station. Cijfers worden voorzien voor vertrek en aankomst, net zoals voor de gewonnen en verloren tijd. Deze slaan op het verschil tussen de vertraging bij aankomst en bij vertrek.</p>
+```
 
+```js
+const station = view(Inputs.select(stationData, {
+        label: "Select Station",
+        format: (x) => x.name,
+        value: (x) => x.id,
+    }));
+
+const datatype = view(Inputs.select([
+    { type: "ARRIVAL_DELAY", label: "Vertraging bij aankomst" },
+    { type: "DEPARTURE_DELAY", label: "Vertraging bij vertrek" },
+    { type: "ADDITIONAL_DELAY", label: "Toegevoegde vertraging" },
+    { type: "REDUCED_DELAY", label: "Gewonnen tijd"}
+], {
+    label: "Dataselectie",
+    format: (x) => x.label,
+    value: (x) => x.type,
+    sort: true,
+}));
+```
+
+```html
+<hr />
+```
+
+```js
+const div = display(document.createElement("div"));
+div.style = "height: 400px;";
+
+const map = L.map(div).setView([station.latitude, station.longitude], 13);
+
+L.tileLayer("https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=c7fafa75876f453cb4b6830b32b67d5f", {
+    attribution: false,
+}).addTo(map);
+
+L.marker([station.latitude, station.longitude])
+    .addTo(map)
+    .bindPopup(station.name)
+    .openPopup();
+```
+
+```html
 <hr />
 
-<h2>Jaaroverzicht</h2>
+<h2>${station.name}</h2>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+<h3>Algemene cijfers</h3>
+
+<div class="grid grid-cols-2">
+    <div class="card">
+        <h2>Gemiddelde vertraging</h2>
+        <h3>${Math.round(generalData.get(station.id)["avg_arrival_delay_s"])} seconden bij aankomst,
+            ${Math.round(generalData.get(station.id)["avg_departure_delay_s"])} seconden bij vertrek.</h3>
+    </div>
+    <div class="card">
+        <h2>Totale vertraging</h2>
+        <h3>${Math.round(generalData.get(station.id)["sum_arrival_delay_s"] / 3600)} uren bij aankomst,
+            ${Math.round(generalData.get(station.id)["sum_departure_delay_s"] / 3600)} uren bij vertrek.</h3>
+    </div>
+    <div class="card">
+        <h2>Aantal treinen</h2>
+        <h3>${generalData.get(station.id)["arrival_count"]} aankomsten,
+            ${generalData.get(station.id)["departure_count"]} vertrekken.</h3>
+    </div>
+    <div class="card">
+        <h2>Gemiddelde efficiëntie</h2>
+        <h3>Treinen winnen gemiddeld ${Math.round(generalData.get(station.id)["avg_time_saving_s"])} seconden.</h3>
+    </div>
+    <div class="card">
+        <h2>Totale efficiëntie</h2>
+        <h3>Treinen wonnen in totaal ${Math.round(generalData.get(station.id)["sum_time_saving_s"] / 3600)} uren.</h3>
+    </div>
+</div>
+
+<hr/>
+
+<h3>Jaaroverzicht</h3>
+
+<p>Het aantal passagiers van een station is sterk afhankelijk van de kalenderdag. Badsteden zullen op hun drukst zijn
+    tijdens de zomermaanden, financiele centra bij weekdagen. Feest- en verlofdagen zullen op beurt hun invloed
+    uitoefenen op de stations. In de onderstaande grafiek wensen we de correlatie na te gaan met de vertragingscijfers
+    van een station. </p>
+
+<p>Iedere kalendardag wordt voorgesteld door een lijnstuk. Hoe donkerder de kleur, hoe hoger de gemiddelde vertraging op
+    die dag.</p>
 
 <div class="card">
     <h2>Gemiddelde vertraging per dag</h2>
@@ -269,11 +292,14 @@ function getTrainLines(station, datatype) {
     ${Graphs.year(getYearRule(station.id, datatype))}
 </div>
 
-<hr />
+<hr/>
 
-<h2>Moment van de dag</h2>
+<h3>Moment van de week</h3>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+<p>De stiptheid van de treinen kan afhankelijk zijn van het uur en de weekdag. In deze matrixweergave berekenen we de
+    gemiddelde vertraging voor ieder uur van iedere weekdag. Hierbij kunnen we inschatten op welk moment van de week de
+    treinen het betrouwbaarst zijn, en ook of eventuele correlaties met de typische spitsuren aanwezig zijn. Indien er
+    niet voldoende data beschikbaar is, wordt geen gemiddelde vertraging gerapporteerd.</p>
 
 <div class="card">
     <h2>Gemiddelde vertraging per uur</h2>
@@ -281,11 +307,13 @@ function getTrainLines(station, datatype) {
     ${Graphs.week(getTimeOfDay(station.id, datatype))}
 </div>
 
-<hr />
+<hr/>
 
-<h2>Vertragingsdistributie</h2>
+<h3>Vertragingsdistributie</h3>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+<p>De ene vertraging is de andere niet. Hoewel de meeste reizigers enkele minuten kunnen tolereren, wegen lange
+    wachttijden doorgaans zwaarder door. Hieronder wordt de vertragingsdistributie weergegeven, waarbij men kan aflezen
+    hoeveel treinen er een gegeven aantal minuten vertraging opliepen.</p>
 
 <div class="card">
     <h2>Aantal vertragingen van bepaalde duur</h2>
@@ -293,11 +321,13 @@ function getTrainLines(station, datatype) {
     ${Graphs.distribution(getDistribution(station.id, datatype))}
 </div>
 
-<hr />
+<hr/>
 
-<h2>Treinlijnen</h2>
+<h3>Treinlijnen</h3>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+<p>In het merendeel van de Belgische stations passeert er meer dan een treinlijn. Het is dus ook evident dat hun
+    onderlinge vertragingscijfers grotendeels onafhankelijk zijn. We lijsten hieronder alle treinlijnen op die doorheen
+    dit station passeren.</p>
 
 <div class="card">
     ${Graphs.trainLines(getTrainLines(station.id, datatype))}

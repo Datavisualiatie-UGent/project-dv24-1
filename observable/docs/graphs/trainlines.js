@@ -6,8 +6,7 @@ import * as Plot from "npm:@observablehq/plot";
  */
 export function trainLines(data) {
     return Plot.plot({
-        label: null,
-        width: 1200,
+        label: "Treinlijn",
         x: {
             axis: "top",
             label: "Vertraging in seconden",

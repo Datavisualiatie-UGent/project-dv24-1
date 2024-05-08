@@ -23,8 +23,6 @@ export function week(data) {
     });
 
     return Plot.plot({
-        width: 1200,
-        height: 500,
         padding: 0,
         grid: true,
         y: { label: "Weekdag" },
