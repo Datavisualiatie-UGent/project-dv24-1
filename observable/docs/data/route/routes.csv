@@ -1,0 +1,96 @@
+route,start_id,start_station,end_id,end_station
+IC 03,166,Blankenberge,1670,Genk
+IC 06-1,219,Brussels Airport - Zaventem,1154,Doornik
+IC 20,455,Gent-Sint-Pieters,748,Lokeren
+IC 02,929,Oostende,37,Antwerpen-Centraal
+L B10-1,220,Brussel-Zuid,6,Aalst
+L B1-2,911,Nijvel,221,Brussel-Noord
+L B1-1,37,Antwerpen-Centraal,220,Brussel-Zuid
+IC 17,329,Dinant,220,Brussel-Zuid
+L B6,318,Denderleeuw,1048,Schaarbeek
+IC 09,726,Luik-Guillemins,37,Antwerpen-Centraal
+L B2-2,205,'s-Gravenbrakel,715,Leuven
+IC 08,37,Antwerpen-Centraal,523,Hasselt
+IC 06-2,219,Brussels Airport - Zaventem,848,Bergen
+L 27,1088,Sint-Niklaas,810,Mechelen
+IC 11,158,Binche,1048,Schaarbeek
+L B3,1048,Schaarbeek,1274,Zottegem
+IC 23-2,642,Knokke,219,Brussels Airport - Zaventem
+IC 23-1,219,Brussels Airport - Zaventem,929,Oostende
+L B5-1,810,Mechelen,504,Halle
+L 23,37,Antwerpen-Centraal,715,Leuven
+L C2-1,673,La Louvière-Centrum,259,Charleroi-Centraal
+L B19,203,Eigenbrakel,715,Leuven
+L C1,895,Namen,936,Ottignies
+IC 10,37,Antwerpen-Centraal,1368,Hamont
+L B10-2,220,Brussel-Zuid,319,Dendermonde
+L 37-2,840,Mol,523,Hasselt
+IC 25,868,Moeskroen,733,Liers
+L 24,810,Mechelen,715,Leuven
+L C4,259,Charleroi-Centraal,291,Couvin
+L 15,733,Liers,801,Marloie
+L 13-2,70,Aarlen,723,Libramont
+L 02,1723,Zeebrugge-Strand,455,Gent-Sint-Pieters
+L 26,848,Bergen,1744,La Louvière-Zuid
+IC 01,929,Oostende,382,Eupen
+L 28,649,Kortrijk,810,Mechelen
+L G1,1013,Ronse,346,Eeklo
+L G3,37,Antwerpen-Centraal,455,Gent-Sint-Pieters
+L 10-2,723,Libramont,801,Marloie
+L B8-2,936,Ottignies,762,Louvain-la-Neuve
+IC 32,210,Brugge,649,Kortrijk
+L L4,684,Landen,726,Luik-Guillemins
+L 29,458,Geraardsbergen,982,Quévy
+L B8-4,936,Ottignies,220,Brussel-Zuid
+IC 04-1,37,Antwerpen-Centraal,973,Poperinge
+L L1-1,562,Herstal,1177,Verviers-Centraal
+L 16,895,Namen,272,Ciney
+L 08,936,Ottignies,895,Namen
+L 04,984,Quiévrain,848,Bergen
+L 11,723,Libramont,895,Namen
+L 01,895,Namen,726,Luik-Guillemins
+L 13-1,723,Libramont,70,Aarlen
+L 10-1,617,Rochefort-Jemelle,272,Ciney
+L B8-3,936,Ottignies,762,Louvain-la-Neuve
+L L2,733,Liers,402,Flémalle-Haute
+L G2,458,Geraardsbergen,455,Gent-Sint-Pieters
+IC 31,37,Antwerpen-Centraal,259,Charleroi-Centraal
+L B20-1,936,Ottignies,715,Leuven
+IC 29,13,De Panne,684,Landen
+IC 22,37,Antwerpen-Centraal,220,Brussel-Zuid
+IC 30,1161,Turnhout,37,Antwerpen-Centraal
+L C2-2,673,La Louvière-Centrum,259,Charleroi-Centraal
+L 36,649,Kortrijk,1274,Zottegem
+IC 14,726,Luik-Guillemins,984,Quiévrain
+L B4,6,Aalst,810,Mechelen
+L 03,523,Hasselt,715,Leuven
+IC 28,13,De Panne,37,Antwerpen-Centraal
+L A3,840,Mol,37,Antwerpen-Centraal
+L A4-2,748,Lokeren,37,Antwerpen-Centraal
+L A2,977,Puurs,376,Essen
+IC 07,259,Charleroi-Centraal,376,Essen
+L B8-1,762,Louvain-la-Neuve,1274,Zottegem
+L B9,684,Landen,911,Nijvel
+L 31,628,Jurbeke,205,'s-Gravenbrakel
+IC 12,649,Kortrijk,1226,Welkenraedt
+L B7,1192,Vilvoorde,504,Halle
+L B5-2,504,Halle,810,Mechelen
+IC 21,455,Gent-Sint-Pieters,715,Leuven
+IC 15,37,Antwerpen-Centraal,523,Hasselt
+IC 13,649,Kortrijk,1048,Schaarbeek
+L B20-2,936,Ottignies,715,Leuven
+IC 19-1,1154,Doornik,895,Namen
+IC 18,220,Brussel-Zuid,730,Luik-Sint-Lambertus
+L S63-2,259,Charleroi-Centraal,369,Erquelinnes
+IC 26,649,Kortrijk,1088,Sint-Niklaas
+L B2-1,205,'s-Gravenbrakel,715,Leuven
+L 19,1744,La Louvière-Zuid,205,'s-Gravenbrakel
+L 37-1,840,Mol,523,Hasselt
+IC 05,259,Charleroi-Centraal,1839,Noorderkempen
+L A5,37,Antwerpen-Centraal,1839,Noorderkempen
+L A4-1,37,Antwerpen-Centraal,1088,Sint-Niklaas
+L L1-2,1177,Verviers-Centraal,730,Luik-Sint-Lambertus
+L C3-2,369,Erquelinnes,259,Charleroi-Centraal
+L 21,810,Mechelen,715,Leuven
+IC 24,715,Leuven,259,Charleroi-Centraal
+L 09,1177,Verviers-Centraal,459,Spa-Géronstère
