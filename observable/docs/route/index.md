@@ -177,12 +177,10 @@ function showAverageDelays(selectedRoute, datatype) {
     ${map_route(getRouteStations(route.route).stations)}
 </div>
 
-<div class="grid grid-cols-2" style="align-items: center; width: 1400px">
-    <div>
-        <h1>${route.route}: Route ${route.start_station} -> ${route.end_station}</h1>
-        <p>Op deze pagina bestuderen we de station op de route van ${route.start_station} naar ${route.end_station}. 
-            Er zijn ${getRouteStations(route.route).trains.length} treinen die deze route rijden doorheen de dag.</p>
-    </div>
+<div>
+    <h1>${route.route}: Route ${route.start_station} -> ${route.end_station}</h1>
+    <p>Op deze pagina bestuderen we de station op de route van ${route.start_station} naar ${route.end_station}. 
+        Er zijn ${getRouteStations(route.route).trains.length} treinen die deze route rijden doorheen de dag.</p>
 </div>
 
 <div class="card">

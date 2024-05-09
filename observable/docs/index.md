@@ -85,14 +85,14 @@ Aangezien er te veel stations bestaan om allemaal te tonen, bestuderen we de der
         <p>Hier zien we de gemiddelde vertraging bij aankomst. Er zijn slechts 2 station waarbij treinen gemiddeld te vroeg aankomen.</p>
         <br>
         ${Graphs.average_delays(avg_arr_delays.slice(0,30), true, 70)}
-        <h1>&emsp; &emsp; &emsp; ⋮</h1>
+        <h1>&emsp; &emsp; &emsp; &nbsp; ⋮</h1>
         ${Graphs.average_delays(avg_arr_delays.slice(30), false, 10)}
     </div>
     <div class="card">
         <p>Hier zien we de gemiddelde vertraging bij vertrek. Hier zijn er al vier treinen die in het algemeen te vroeg vertrekken.</p>
         <br>
         ${Graphs.average_delays(avg_dep_delays.slice(0,30), true, 70)}
-        <h1>&emsp; &emsp; &emsp; ⋮</h1>
+        <h1>&emsp; &emsp; &emsp; &nbsp; ⋮</h1>
         ${Graphs.average_delays(avg_dep_delays.slice(30), false, 10)}
     </div>
 </div>
@@ -107,10 +107,10 @@ Aangezien er te veel stations bestaan om allemaal te tonen, bestuderen we de der
 
 <h2>Gemiddelde vertragingen van stations ten opzichte van aantal treinen dat het station passseert.</h2>
 <div class="card">
-    ${Graphs.correlations(correlations, "avg_arrival_delay", [-10,30])}
+    ${Graphs.correlations(correlations, "avg_arrival_delay")}
 </div>
 <div class="card">
-    ${Graphs.correlations(correlations, "avg_departure_delay", [-200,1000])}
+    ${Graphs.correlations(correlations, "avg_departure_delay")}
 </div>
 
 

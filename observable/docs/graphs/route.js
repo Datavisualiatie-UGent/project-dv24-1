@@ -10,6 +10,9 @@ export function route(data) {
 }
 
 export function delays(data, stations, departures, start_station, arr_dep) {
+    const delay = arr_dep === "arrival_delay"
+        ? "vertraging bij aankomst (seconden)"
+        : "vertraging bij vertrek (seconden)";
     return Plot.plot({
         marginLeft: 80,
         marginBottom: 80,
@@ -19,7 +22,7 @@ export function delays(data, stations, departures, start_station, arr_dep) {
         label: null,
         x: {tickRotate: -40, domain: stations, label: "station"},
         y: {domain: departures, label: "gepland vertrek in " + start_station},
-        color: { scheme: "blues", pivot: 0, legend: true, label: arr_dep, domain: [-300, 500] },
+        color: { scheme: "blues", pivot: 0, legend: true, label: delay, domain: [-300, 500] },
         marks: [
             Plot.cell(data, { x: "station", y: "departure", fill: arr_dep }),
 
@@ -33,13 +36,16 @@ export function delays(data, stations, departures, start_station, arr_dep) {
 }
 
 export function delays_by_station(data, stations, averages, arr_dep) {
+    const delay = arr_dep === "arrival_delay"
+        ? "vertraging bij aankomst (seconden)"
+        : "vertraging bij vertrek (seconden)";
     return Plot.plot({
         width: 1400,
         marginBottom: 80,
         marginTop: 30,
         color: {scheme: "BuRd", domain: [-50, 700]},
         x: {tickRotate: -40, domain: stations, label: "station"},
-        y: {domain: [-50, 650], label: "vertraging"},
+        y: {domain: [-50, 650], label: delay},
         marks: [
             Plot.ruleY([0]),
             Plot.dot(data, {x: "station", y: arr_dep, stroke: arr_dep}),

@@ -68,7 +68,7 @@ export function min_max_delays(data) {
     x: { label: "Station", tickRotate: -80, labelAnchor: "left", labelOffset: 50 },
     y: {
       grid: true,
-      label: "← Min vertraging · Max vertraging →",
+      label: "← Min vertraging (seconden) · Max vertraging (seconden) →",
       labelAnchor: "center",
     },
     marks: [
@@ -85,7 +85,10 @@ export function min_max_delays(data) {
   });
 }
 
-export function correlations(data, delay, y_domain) {
+export function correlations(data, delay) {
+  const label = delay === "avg_arrival_delay"
+      ? "gemiddelde vertraging bij aankomst"
+      : "gemiddelde vertraging bij vertrek";
   return Plot.plot({
     grid: true,
     width: 1400,
@@ -97,7 +100,7 @@ export function correlations(data, delay, y_domain) {
       fontSize: "15px",
     },
     x: { domain: [0, 500], label: "aantal trainen" },
-    y: { domain: y_domain, label: delay + " (minuten)" },
+    y: { domain: [-5, 30], label: label + " (minuten)" },
     marks: [
       Plot.dot(data, { x: "num_trains", y: delay, fill: true }),
       Plot.linearRegressionY(data, { x: "num_trains", y: delay })
