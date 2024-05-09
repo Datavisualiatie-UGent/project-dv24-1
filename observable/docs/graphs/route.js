@@ -4,8 +4,11 @@ export function route(data) {
     return Plot.plot({
         x: {type: "point", domain: data, grid: true, tickRotate: -40},
         width: 1200,
-        marginBottom: 90,
-        marginLeft: 30
+        marginBottom: 100,
+        marginLeft: 50,
+        style: {
+            fontSize: "12px",
+        }
     })
 }
 
@@ -15,11 +18,14 @@ export function delays(data, stations, departures, start_station, arr_dep) {
         : "vertraging bij vertrek (seconden)";
     return Plot.plot({
         marginLeft: 80,
-        marginBottom: 80,
+        marginBottom: 100,
         marginRight: 30,
         width: 1400,
-        height: 700,
+        height: 800,
         label: null,
+        style: {
+            fontSize: "12px",
+        },
         x: {tickRotate: -40, domain: stations, label: "station"},
         y: {domain: departures, label: "gepland vertrek in " + start_station},
         color: { scheme: "blues", pivot: 0, legend: true, label: delay, domain: [-300, 500] },
@@ -41,8 +47,11 @@ export function delays_by_station(data, stations, averages, arr_dep) {
         : "vertraging bij vertrek (seconden)";
     return Plot.plot({
         width: 1400,
-        marginBottom: 80,
+        marginBottom: 100,
         marginTop: 30,
+        style: {
+            fontSize: "12px",
+        },
         color: {scheme: "BuRd", domain: [-50, 700]},
         x: {tickRotate: -40, domain: stations, label: "station"},
         y: {domain: [-50, 650], label: delay},

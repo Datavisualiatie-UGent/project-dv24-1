@@ -65,7 +65,7 @@ while (index < stations.length) {
 
 <div class="grid grid-cols-2" style="align-items: center">
     <div>
-        <h1>Stations in Vlaanderen</h1>
+        <h1>Stations in België</h1>
         <p>Dagelijks nemen mensen de trein als vervoermidden en hiervoor bevinden zich honderden stations over heel België.
             ...
         </p>
