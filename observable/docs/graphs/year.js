@@ -12,9 +12,12 @@ export function year(data) {
     }
 
     return Plot
-        .ruleX(data, {x: "date", stroke: "delay"})
-        .plot({
-            width: 1200,
+        .ruleX(data, {
+            x: "date",
+            stroke: "delay",
+            tip: true,
+        }).plot({
+            width: 1100,
             height: 100,
             color: {
                 type: "log",

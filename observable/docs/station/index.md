@@ -203,7 +203,7 @@ function getTrainLines(station, datatype) {
 
 ```js
 const station = view(Inputs.select(stationData, {
-        label: "Select Station",
+        label: "Selecteer station",
         format: (x) => x.name,
         value: (x) => x.id,
     }));
@@ -266,11 +266,11 @@ L.marker([station.latitude, station.longitude])
     </div>
     <div class="card">
         <h2>Gemiddelde efficiëntie</h2>
-        <h3>Treinen winnen gemiddeld ${Math.round(generalData.get(station.id)["avg_time_saving_s"])} seconden.</h3>
+        <h3>Treinen verliezen gemiddeld ${-Math.round(generalData.get(station.id)["avg_time_saving_s"])} seconden.</h3>
     </div>
     <div class="card">
         <h2>Totale efficiëntie</h2>
-        <h3>Treinen wonnen in totaal ${Math.round(generalData.get(station.id)["sum_time_saving_s"] / 3600)} uren.</h3>
+        <h3>Treinen verloren in totaal ${-Math.round(generalData.get(station.id)["sum_time_saving_s"] / 3600)} uren.</h3>
     </div>
 </div>
 
@@ -283,12 +283,12 @@ L.marker([station.latitude, station.longitude])
     uitoefenen op de stations. In de onderstaande grafiek wensen we de correlatie na te gaan met de vertragingscijfers
     van een station. </p>
 
-<p>Iedere kalendardag wordt voorgesteld door een lijnstuk. Hoe donkerder de kleur, hoe hoger de gemiddelde vertraging op
+<p>Iedere kalenderdag wordt voorgesteld door een lijnstuk. Hoe donkerder de kleur, hoe hoger de gemiddelde vertraging op
     die dag.</p>
 
 <div class="card">
-    <h2>Gemiddelde vertraging per dag</h2>
-    <h3>In seconden bij aankomst</h3>
+    <h2>Gemiddelde vertraging per kalenderdag.</h2>
+    <h3>Uitgedrukt in seconden.</h3>
     ${Graphs.year(getYearRule(station.id, datatype))}
 </div>
 
@@ -302,8 +302,8 @@ L.marker([station.latitude, station.longitude])
     niet voldoende data beschikbaar is, wordt geen gemiddelde vertraging gerapporteerd.</p>
 
 <div class="card">
-    <h2>Gemiddelde vertraging per uur</h2>
-    <h3>In seconden bij aankomst</h3>
+    <h2>Gemiddelde vertraging per uur, per weekdag.</h2>
+    <h3>Uitgedrukt in seconden.</h3>
     ${Graphs.week(getTimeOfDay(station.id, datatype))}
 </div>
 
@@ -316,8 +316,8 @@ L.marker([station.latitude, station.longitude])
     hoeveel treinen er een gegeven aantal minuten vertraging opliepen.</p>
 
 <div class="card">
-    <h2>Aantal vertragingen van bepaalde duur</h2>
-    <h3>Het percentueel aantal treinen waarvan de vertraging gelijk is aan een gegeven aantal minuten.</h3>
+    <h2>Aantal vertragingen van bepaalde duur.</h2>
+    <h3>Het aantal treinen waarvan de vertraging gelijk is aan een gegeven aantal minuten.</h3>
     ${Graphs.distribution(getDistribution(station.id, datatype))}
 </div>
 
@@ -330,6 +330,8 @@ L.marker([station.latitude, station.longitude])
     dit station passeren.</p>
 
 <div class="card">
+    <h2>Gemiddelde vertraging per treinlijn.</h2>
+    <h3>Uitgedrukt in seconden.</h3>
     ${Graphs.trainLines(getTrainLines(station.id, datatype))}
 </div>
 ```
