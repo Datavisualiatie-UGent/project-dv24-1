@@ -6,14 +6,27 @@ import * as Plot from "npm:@observablehq/plot";
  * pairs.
  */
 export function year(data) {
+    /** Set String to Date. */
+    for (const elem of data) {
+        elem.date = new Date(elem.date);
+    }
+
     return Plot
-        .ruleX(data, {x: "date", stroke: "value"})
-        .plot({
-            width: 1200,
-            height: 100,
+        .ruleX(data, {
+            x: "date",
+            stroke: "delay",
+            tip: true,
+        }).plot({
+            width: 1100,
+            height: 120,
+            marginBottom: 40,
             color: {
                 type: "log",
                 scheme: "Blues",
             },
+            x: {
+                label: "month in 2023",
+                labelAnchor: "center"
+            }
         });
 }

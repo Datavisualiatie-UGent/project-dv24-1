@@ -23,23 +23,24 @@ export function week(data) {
     });
 
     return Plot.plot({
-        width: 500,
-        height: 1000,
         padding: 0,
+        width: 1200,
+        height: 450,
+        marginBottom: 50,
         grid: true,
-        x: { axis: "top", label: "" },
-        y: { label: "" },
+        y: { label: "Weekdag" },
+        x: { label: "Uur" },
         color: { type: "linear", scheme: "blues" },
         marks: [
             Plot.cell(input, {
-                x: "day",
-                y: "hour",
+                y: "day",
+                x: "hour",
                 fill: "value",
                 inset: 0.5,
             }),
             Plot.text(input, {
-                x: "day",
-                y: "hour",
+                y: "day",
+                x: "hour",
                 fill: "black",
                 title: "title",
                 text: (d) => d.value ? Number.parseInt(d.value).toFixed(0) : "",

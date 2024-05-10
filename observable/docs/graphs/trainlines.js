@@ -6,13 +6,13 @@ import * as Plot from "npm:@observablehq/plot";
  */
 export function trainLines(data) {
     return Plot.plot({
-        label: null,
+        height: data.length * 30,
         width: 1200,
-        x: {
-            axis: "top",
-            label: "Vertraging in seconden",
-            labelAnchor: "center",
-        },
+        marginLeft: 70,
+        marginBottom: 40,
+        x: { label: "Vertraging" },
+        y: { label: "Treinlijn" },
+        label: null,
         color: {
             scheme: "blues",
             type: "ordinal"
@@ -22,6 +22,7 @@ export function trainLines(data) {
                 y: "route",
                 x: "delay",
                 fill: "#6699ff",
+                tip: true,
             }),
             Plot.gridX({
                 stroke: "white",

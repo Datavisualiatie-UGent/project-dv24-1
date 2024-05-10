@@ -11,7 +11,7 @@ export default {
       name: "Dashboards",
       pages: [
         { name: "Algemeen", path: "/index" },
-        { name: "Gent Sint-Pieters", path: "/station/index" },
+        { name: "Station", path: "/station/index" },
         { name: "Route", path: "/route/index" },
       ]
     }
