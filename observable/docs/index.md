@@ -66,30 +66,37 @@ while (index < stations.length) {
 <div class="grid grid-cols-2" style="align-items: center">
     <div>
         <h1>Stations in België</h1>
-        <p>Dagelijks nemen mensen de trein als vervoermidden en hiervoor bevinden zich honderden stations over heel België.
-            ...
+        <p>Dagelijk nemen gemiddeld 750.000 mensen de trein. Om dit mogelijk te maken rijden elke dag 3800 treinen doorheen de 550 stations verspreid in België. Aangezien zoveel mensen hiervan afhankelijk zijn, is het echter belangrijk dat dit systeem efficiënt werkt zodat de treinen betrouwbaar kunnen rijden en iedereen op zijn bestemming geraakt. Hier willen we een kijkje nemen naar deze efficiëntie op alle niveaus van het treinverkeer. 
         </p>
+        <p>
+De niveaus die we zullen bekijken zijn: specifieke stations, specifieke routes en overkoepelend over alle stations elk te vinden op hun respectievelijke pagina.
+        </p>
+    <p>
+      Data die gebruikt werd om alle grafieken te maken is terug te vinden op : <a href="https://opendata.infrabel.be/explore/dataset/ruwe-gegevens-van-stiptheid-d-1/information/?disjunctive.train_no&disjunctive.relation&disjunctive.train_serv&disjunctive.line_no_dep&disjunctive.relation_direction&disjunctive.ptcar_lg_nm_nl&disjunctive.line_no_arr">Infrabel</a>. De grafieken zijn gemaakt op basis van de data van het jaar 2023 aangezien de de volledige dataset te groot was om te verwerken.
+    </p>
     </div>
+
     <div>
         ${map_route(stations)}
     </div>
 </div>
-
+<hr>
 
 <h2>Gemiddelde vertragingen aan stations</h2>
-Deze twee grafieken tonen gemiddelde vertragingen aan stations bij zowel aankomst als vertrek.
+Om te beginnen zullen we kijken naar de gemiddelde vertragingen aan stations bij zowel aankomst als vertrek.
 Aangezien er te veel stations bestaan om allemaal te tonen, bestuderen we de dertig beste en dertig slechtste stations qua vertragingen.
+Deze zijn gesorteerd in oplopende volgorde.
 
 <div class="grid grid-cols-2">
     <div class="card">
-        <p>Hier zien we de gemiddelde vertraging bij aankomst. Er zijn slechts 2 station waarbij treinen gemiddeld te vroeg aankomen.</p>
+        <p>Hier zien we de gemiddelde vertraging bij aankomst. Er zijn slechts 2 station waarbij treinen gemiddeld te vroeg aankomen.</p> <br><br><br>
         <br>
         ${Graphs.average_delays(avg_arr_delays.slice(0,30), true, 70)}
         <h1>&emsp; &emsp; &emsp; &nbsp; ⋮</h1>
         ${Graphs.average_delays(avg_arr_delays.slice(30), false, 10)}
     </div>
     <div class="card">
-        <p>Hier zien we de gemiddelde vertraging bij vertrek. Hier zijn er al vier treinen die in het algemeen te vroeg vertrekken.</p>
+        <p>Hier zien we de gemiddelde vertraging bij vertrek. Hier zijn er al vier stations waar treinen in het algemeen te vroeg vertrekken waarbij 1 er uit springt. De reden hiervoor is dat de dataset niet enkel rekening houdt met personenvervoer, maar ook met vrachttreinen die niet aan een even strikte dienstregeling moeten voldoen. </p>
         <br>
         ${Graphs.average_delays(avg_dep_delays.slice(0,30), true, 70)}
         <h1>&emsp; &emsp; &emsp; &nbsp; ⋮</h1>
@@ -97,7 +104,11 @@ Aangezien er te veel stations bestaan om allemaal te tonen, bestuderen we de der
     </div>
 </div>
 
-
+<hr>
+<h2>Extrema van vertrektijden per station.</h2>
+  <p>
+  Hieronder zien we de extremen per station. Zowel de trein die de grootste vertraging had als de trein die vroegst vertrokken is, is hier te zien per station. Zoals te verwachten zijn de maximum vertragingen een stuk groter dan treinen die te vroeg vertrekken. Wat wel opvalt is dat de nmbs sommige treinen niet annuleert die extreem grote vertragingen hebben. Gelukkig is hieruit ook af te leiden dat er geen enkel station is waar alle treinen vertraging hebben.
+ </p>
 <div class="card" style="overflow-x: scroll">
   <div style="width: 10000px">
     ${Graphs.min_max_delays(arr_delays)}
@@ -106,10 +117,10 @@ Aangezien er te veel stations bestaan om allemaal te tonen, bestuderen we de der
 <hr>
 
 <h2>Gemiddelde vertragingen van stations ten opzichte van aantal treinen dat het station passseert.</h2>
+<p>
+  Iets wat we zeker wilden onderzoeken was of er een correlatie te zien is tussen de drukte van een station en zijn gemiddelde vertraging. De drukte van een station stellen we hier voor door het aantal treinen die erdoor rijden per jaar. Uit de resultaten kunnen we afleiden dat drukkere stations in het algemeen geen grotere vertraging hebben. We kunnen wel zien dat er clusters ontstaan bij bepaalde hoeveelheden aan treinen, hier is de variantie dan ook hoger. Deze variantie is zeer hoog bij stations waar niet veel treinen passeren, maar dit zijn vermoedelijk stations voor vrachttreinen, niet bedoeld voor personenvervoer.</p>
 <div class="card">
     ${Graphs.correlations(correlations, "avg_arrival_delay")}
-</div>
-<div class="card">
     ${Graphs.correlations(correlations, "avg_departure_delay")}
 </div>
 
