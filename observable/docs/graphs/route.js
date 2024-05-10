@@ -1,4 +1,5 @@
 import * as Plot from "npm:@observablehq/plot";
+import * as d3 from 'https://unpkg.com/d3?module';
 
 export function route(data) {
     return Plot.plot({
@@ -14,8 +15,8 @@ export function route(data) {
 
 export function delays(data, stations, departures, start_station, arr_dep) {
     const delay = arr_dep === "arrival_delay"
-        ? "vertraging bij aankomst (seconden)"
-        : "vertraging bij vertrek (seconden)";
+        ? "vertraging bij aankomst (minuten)"
+        : "vertraging bij vertrek (minuten)";
     return Plot.plot({
         marginLeft: 80,
         marginBottom: 100,
@@ -28,14 +29,14 @@ export function delays(data, stations, departures, start_station, arr_dep) {
         },
         x: {tickRotate: -40, domain: stations, label: "station"},
         y: {domain: departures, label: "gepland vertrek in " + start_station},
-        color: { scheme: "blues", pivot: 0, legend: true, label: delay, domain: [-300, 500] },
+        color: { scheme: "blues", pivot: 0, legend: true, label: delay, domain: [-5, 10] },
         marks: [
             Plot.cell(data, { x: "station", y: "departure", fill: arr_dep }),
 
             Plot.text(data, {
                 x: "station",
                 y: "departure",
-                text: arr_dep,
+                text: (d) =>  Math.round(d[arr_dep] * 100) / 100,
             })
         ]
     })
@@ -43,8 +44,8 @@ export function delays(data, stations, departures, start_station, arr_dep) {
 
 export function delays_by_station(data, stations, averages, arr_dep) {
     const delay = arr_dep === "arrival_delay"
-        ? "vertraging bij aankomst (seconden)"
-        : "vertraging bij vertrek (seconden)";
+        ? "vertraging bij aankomst (minuten)"
+        : "vertraging bij vertrek (minuten)";
     return Plot.plot({
         width: 1400,
         marginBottom: 100,
@@ -52,9 +53,9 @@ export function delays_by_station(data, stations, averages, arr_dep) {
         style: {
             fontSize: "12px",
         },
-        color: {scheme: "BuRd", domain: [-50, 700]},
+        color: {scheme: "BuRd", domain: [-5, 15]},
         x: {tickRotate: -40, domain: stations, label: "station"},
-        y: {domain: [-50, 650], label: delay},
+        y: {domain: [-5, 15], label: delay},
         marks: [
             Plot.ruleY([0]),
             Plot.dot(data, {x: "station", y: arr_dep, stroke: arr_dep}),

@@ -57,25 +57,8 @@ function getStationsCoordinates(selection, coordinates) {
 
 
 /*
- * data for route selection
+ * data based on selected route
  */
-
-const route = view(Inputs.select(routesData, {
-    label: "Selecteer route",
-    format: (x) => x.route + " (" + x.start_station + " -> " + x.end_station + ")",
-    value: (x) => x.route
-}));
-
-const datatype = view(Inputs.select([
-    {type: "arrival_delay", label: "Vertraging bij aankomst"},
-    {type: "departure_delay", label: "Vertraging bij vertrek"}
-], {
-    label: "Selecteer type data",
-    format: (x) => x.label,
-    value: (x) => x.type,
-    sort: true,
-    style: "width: 200px"
-}));
 
 // get the list of stations (with their coordinates) on the route that is passed by the most amount of trains
 function getRouteStations(route) {
@@ -162,6 +145,8 @@ function showAverageDelays(selectedRoute, datatype) {
 
 ```
 
+
+
 ```html
 <style>
     #observablehq-center {
@@ -173,32 +158,65 @@ function showAverageDelays(selectedRoute, datatype) {
     }
 </style>
 
+<h1>Routes</h1>
+<p>Deze pagina biedt een detailweergave over de vertragingscijfers voor een specifieke route. 
+    Hierbij wordt een route voorgesteld als een traject van een startpunt naar een eindbestemming met een lijst van tussenliggende stations.</p>
+```
+
+```js
+/*
+ * selection boxes for route and type of data to be shown
+ */
+const route = view(Inputs.select(routesData, {
+    label: "Selecteer route",
+    format: (x) => x.route + " (" + x.start_station + " -> " + x.end_station + ")",
+    value: (x) => x.route
+}));
+
+const datatype = view(Inputs.select([
+    {type: "arrival_delay", label: "Vertraging bij aankomst"},
+    {type: "departure_delay", label: "Vertraging bij vertrek"}
+], {
+    label: "Selecteer type data",
+    format: (x) => x.label,
+    value: (x) => x.type,
+    sort: true,
+    style: "width: 200px"
+}));
+```
+
+```html
+<h2>${route.route}: Route ${route.start_station} -> ${route.end_station}</h2>
 <div>
     ${map_route(getRouteStations(route.route).stations)}
 </div>
 
 <div>
-    <h1>${route.route}: Route ${route.start_station} -> ${route.end_station}</h1>
-    <p>Op deze pagina bestuderen we de station op de route van ${route.start_station} naar ${route.end_station}. 
-        Er zijn ${getRouteStations(route.route).trains.length} treinen die deze route rijden doorheen de dag.</p>
+    <p>
+        De geselecteerde route heeft als beginstation ${route.start_station} en als eindstation ${route.end_station}. 
+        Er zijn ${getRouteStations(route.route).trains.length} treinen die deze route rijden, elk vertrekkend op een ander moment van de dag. 
+        De stations die ze passeren, worden getoond op de kaart hierboven.
+    </p>
 </div>
 
 <div class="card">
-    <h2>Stations op de route tussen ${route.start_station} en ${route.end_station} voor meerdere treinen</h2>
+    <h2>Stations op de route tussen ${route.start_station} en ${route.end_station}</h2>
     ${Graphs.route(getRouteStations(route.route).stations.map(x => x.station))}
 </div>
 <hr>
 
 <h2>Vertragingen van de treinen op de route</h2>
-Deze grafiek toont de vertraging van de treinen die de route ${route.start_station}-${route.end_station} volgen. Bij elk station kan de vertraging van aankomst of vertrek getoond worden.
+Afhankelijk van het vertrekuur van een trein kan de vertraging sterk variëren. Om dit te illustreren, 
+worden de gemiddelde vertragingen bij de stations vergeleken ten opzichte van het vertrekuur aan het beginstation.
 <div class="card">
     ${showDelays(route, datatype.type)}
 </div>
 <hr>
 
-<h2>Vertragingen per stations op de route</h2>
-Voor elk station op de route worden de gemiddelde vertragingen per trein geplot. Ook het gemiddeldes ervan zijn verbonden.
-Via deze grafiek valt duidelijk op dat de hoeveelheid van vertraging stijgt naarmate de trein dichter bij zijn eindbestemming komt.
+<h2>Vertragingen per station op de route</h2>
+Niet enkel het vertrekuur van de trein heeft een invloed op vertragingen, maar ook de positie van het station op de route.
+Hoe verder op de route, hoe groter de kans dat de trein onderweg vertraging heeft gelopen. Deze evolutie wordt hier gedemonstreerd.
+Bovendien kan je afleiden in welke segmenten er tijd verloren wordt en waar tijd gewonnen kan worden. 
 <div class="card">
     ${showAverageDelays(route, datatype.type)}
 </div>
