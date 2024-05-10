@@ -8,6 +8,8 @@ export function trainLines(data) {
     return Plot.plot({
         height: data.length * 30,
         width: 1200,
+        marginLeft: 70,
+        marginBottom: 40,
         x: { label: "Vertraging" },
         y: { label: "Treinlijn" },
         label: null,

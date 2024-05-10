@@ -25,7 +25,8 @@ export function week(data) {
     return Plot.plot({
         padding: 0,
         width: 1200,
-        height: 400,
+        height: 450,
+        marginBottom: 50,
         grid: true,
         y: { label: "Weekdag" },
         x: { label: "Uur" },

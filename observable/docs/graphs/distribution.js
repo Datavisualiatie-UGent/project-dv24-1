@@ -11,7 +11,9 @@ export function distribution(data) {
         tip: true,
     }).plot({
         width: 1200,
-        height: 200,
+        height: 230,
+        marginLeft: 60,
+        marginBottom: 40,
         x: { label: "Vertraging" },
         y: { label: "Aantal" },
     });
