@@ -59,6 +59,20 @@ More details about the project structure can be found in the respective director
 
 To set up the project locally, follow these steps:
 
+### Database
+
+This step is optional, but required if you wish to create new data files or update existing ones. If you merely want to update existing graphs, or preview the website locally, the CSV files included in the repository will suffice. We expect you to have Golang and Docker with Docker Compose installed. 
+
+1. **Retrieve Raw Data**: Execute the [`fetch.sh`](./golang/data/fetch.sh) script in order to retrieve all data from 2023. We do so using the `limit` and `offset` URL parameters, so if you wish, you could change these in order to retrieve another selection of datasets.
+
+2. **Initialize Database**: All required services are provided in a [Docker Compose](./golang/docker-compose.yml) file. Simply execute `docker compose up`.
+
+3. **Execute the data parser and ingestion**: In the [`golang`](./golang) directory, execute `go run . ./data` where `./data` refers to the directory into which you have saved the previously retrieved datasets. Here, the Go compiler is automatically invoked and applies the database schema to PostgreSQL.
+
+Note that data ingestion takes a while due to the sheer size of  the datasets. During ingestion, the console output will inform you on the progress.
+
+### Observable Framework
+
 1. **Clone the Repository**: Clone this repository to your local machine using Git.
    
 2. **Navigate to Project Directory**: Open a terminal and navigate to the project directory.
