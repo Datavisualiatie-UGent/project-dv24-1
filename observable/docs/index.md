@@ -101,23 +101,22 @@ document.getElementById("cols").appendChild(div);
 ```html
 <h2>Gemiddelde vertragingen aan stations</h2>
 Om te beginnen zullen we kijken naar de gemiddelde vertragingen aan stations bij zowel aankomst als vertrek.
-Aangezien er te veel stations bestaan om allemaal te tonen, bestuderen we de dertig beste en dertig slechtste stations qua vertragingen.
 Deze zijn gesorteerd in oplopende volgorde.
 
-<div class="grid grid-cols-2">
-    <div class="card">
-        <p>Hier zien we de gemiddelde vertraging bij aankomst. Er zijn slechts 2 station waarbij treinen gemiddeld te vroeg aankomen.</p> <br><br><br>
-        <br>
-        ${Graphs.average_delays(avg_arr_delays.slice(0,30), true, 70)}
-        <h1>&emsp; &emsp; &emsp; &nbsp; ⋮</h1>
-        ${Graphs.average_delays(avg_arr_delays.slice(30), false, 10)}
+<div class="grid grid-cols-2" style="height: 1000px">
+    <div class="card" style="overflow-y: scroll; height: 1000px">
+        <div>
+            <p>Hier zien we de gemiddelde vertraging bij aankomst. Er zijn slechts 2 station waarbij treinen gemiddeld te vroeg aankomen.</p> <br><br><br>
+            <br>
+            ${Graphs.average_delays(avg_arr_delays_csv, true, 70)}
+        </div>
     </div>
-    <div class="card">
-        <p>Hier zien we de gemiddelde vertraging bij vertrek. Hier zijn er al vier stations waar treinen in het algemeen te vroeg vertrekken waarbij 1 er uit springt. De reden hiervoor is dat de dataset niet enkel rekening houdt met personenvervoer, maar ook met vrachttreinen die niet aan een even strikte dienstregeling moeten voldoen. </p>
-        <br>
-        ${Graphs.average_delays(avg_dep_delays.slice(0,30), true, 70)}
-        <h1>&emsp; &emsp; &emsp; &nbsp; ⋮</h1>
-        ${Graphs.average_delays(avg_dep_delays.slice(30), false, 10)}
+    <div class="card" style="overflow-y: scroll; height: 1000px">
+        <div>
+            <p>Hier zien we de gemiddelde vertraging bij vertrek. Hier zijn er al vier stations waar treinen in het algemeen te vroeg vertrekken waarbij 1 er uit springt. De reden hiervoor is dat de dataset niet enkel rekening houdt met personenvervoer, maar ook met vrachttreinen die niet aan een even strikte dienstregeling moeten voldoen. </p>
+            <br>
+            ${Graphs.average_delays(avg_dep_delays_csv, true, 70)}
+        </div>
     </div>
 </div>
 

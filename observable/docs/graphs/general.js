@@ -4,7 +4,7 @@ import * as d3 from 'https://unpkg.com/d3?module';
 export function average_delays(data, info, marginTop) {
   return Plot.plot({
     width: 700,
-    height: 800,
+    height: 10000,
     marginLeft: 80,
     marginTop: marginTop,
     label: null,
