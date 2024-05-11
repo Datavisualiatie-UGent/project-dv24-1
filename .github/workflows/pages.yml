@@ -4,6 +4,11 @@ on:
   push:
     branches: ['develop']
 
+defaults:
+  run:
+    shell: bash
+    working-directory: ./observable
+
 jobs:
   build_site:
     runs-on: ubuntu-latest
@@ -18,11 +23,9 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        working-directory: ./observable
         run: npm install
 
       - name: build
-        working-directory: ./observable
         run: npm run build
 
       - name: Upload Artifacts
