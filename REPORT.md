@@ -26,6 +26,12 @@ De SQL queries die uitgevoerd worden om de resulterende grafiekdata te verkrijge
 
 Onze oplossing is dus eenvoudigweg de SQL queries uitvoeren tijdens het ontwikkelen, en het resultaat als CSV-bestand opslaan en toevoegen aan Git.
 
+#### Compressie
+
+We passen geen expliciete compressie toe op onze resulterende data. Hoewel Observable Framework ondersteuning heeft voor het inladen van bestanden uit `zip` en gecomprimeerde `tar` archieven, wordt decompressie reeds toegepast bij het genereren van de statische site.
+
+We steunen wel op HTTP om compressie toe te passen. De webservers die GitHub Pages mogelijk maken zullen automatisch `gzip` encodering toepassen met behulp van de `content-encoding` *header*, waardoor manuele compressie onnodig wordt.
+
 #### Online filteren
 
 Stel dat we data wensen te generen die de gemiddelde vertraging per kalendardag, per station beschrijft. We kiezen ervoor om een enkel CSV-bestand te genereren en op te slaan, en de correcte waarden *client-side* te filteren.
