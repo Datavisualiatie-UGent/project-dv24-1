@@ -1,5 +1,7 @@
 # Regular Express
 
+[![Deploy to GitHub Pages](https://github.com/Datavisualiatie-UGent/project-dv24-1/actions/workflows/pages.yml/badge.svg)](https://github.com/Datavisualiatie-UGent/project-dv24-1/actions/workflows/pages.yml)
+
 ## Description
 
 This repository contains the source code for the Regular Express project, a project for the course datavisualisation at Ugent 2023-2024, which aims to provide a comprehensive analysis of train delays in Belgium. The project uses data provided by Infrabel ([dataset](https://opendata.infrabel.be/explore/dataset/ruwe-gegevens-van-stiptheid-d-1/information/?disjunctive.train_no&disjunctive.relation&disjunctive.train_serv&disjunctive.line_no_dep&disjunctive.relation_direction&disjunctive.ptcar_lg_nm_nl&disjunctive.line_no_arr)) to generate insights and visualizations that can be used to improve the efficiency of the Belgian railway system.
