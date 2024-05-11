@@ -63,7 +63,7 @@ while (index < stations.length) {
     }
 </style>
 
-<div class="grid grid-cols-2" style="align-items: center">
+<div class="grid grid-cols-2" id="cols" style="align-items: center">
     <div>
         <h1>Stations in België</h1>
         <p>Dagelijk nemen gemiddeld 750.000 mensen de trein. Om dit mogelijk te maken rijden elke dag 3800 treinen doorheen de 550 stations verspreid in België. Aangezien zoveel mensen hiervan afhankelijk zijn, is het echter belangrijk dat dit systeem efficiënt werkt zodat de treinen betrouwbaar kunnen rijden en iedereen op zijn bestemming geraakt. Hier willen we een kijkje nemen naar deze efficiëntie op alle niveaus van het treinverkeer. 
@@ -75,13 +75,30 @@ De niveaus die we zullen bekijken zijn: specifieke stations, specifieke routes e
       Data die gebruikt werd om alle grafieken te maken is terug te vinden op : <a href="https://opendata.infrabel.be/explore/dataset/ruwe-gegevens-van-stiptheid-d-1/information/?disjunctive.train_no&disjunctive.relation&disjunctive.train_serv&disjunctive.line_no_dep&disjunctive.relation_direction&disjunctive.ptcar_lg_nm_nl&disjunctive.line_no_arr">Infrabel</a>. De grafieken zijn gemaakt op basis van de data van het jaar 2023 aangezien de de volledige dataset te groot was om te verwerken.
     </p>
     </div>
-
-    <div>
-        ${map_route(stations)}
-    </div>
 </div>
 <hr>
+```
 
+```js
+const div = display(document.createElement("div"));
+div.style = "height: 400px;";
+
+const map = L.map(div).setView([stations[0].latitude, stations[0].longitude], 13);
+
+L.tileLayer("https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=c7fafa75876f453cb4b6830b32b67d5f", {
+    attribution: false,
+}).addTo(map);
+
+for (let station of stations) {
+    let lat = station.latitude;
+    let long = station.longitude;
+    L.marker([lat, long]).addTo(map);
+}
+
+document.getElementById("cols").appendChild(div);
+```
+
+```html
 <h2>Gemiddelde vertragingen aan stations</h2>
 Om te beginnen zullen we kijken naar de gemiddelde vertragingen aan stations bij zowel aankomst als vertrek.
 Aangezien er te veel stations bestaan om allemaal te tonen, bestuderen we de dertig beste en dertig slechtste stations qua vertragingen.

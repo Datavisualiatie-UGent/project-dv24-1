@@ -187,10 +187,29 @@ const datatype = view(Inputs.select([
 
 ```html
 <h2>${route.route}: Route ${route.start_station} -> ${route.end_station}</h2>
-<div>
-    ${map_route(getRouteStations(route.route).stations)}
-</div>
+```
 
+```js
+const stations = getRouteStations(route.route).stations;
+
+const div = display(document.createElement("div"));
+div.style = "height: 400px;";
+
+const map = L.map(div).setView([stations[0].latitude, stations[0].longitude], 13);
+
+L.tileLayer("https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=c7fafa75876f453cb4b6830b32b67d5f", {
+    attribution: false,
+}).addTo(map);
+
+for (let station of stations) {
+    let lat = station.latitude;
+    let long = station.longitude;
+    L.marker([lat, long]).addTo(map);
+}
+```
+
+
+```html
 <div>
     <p>
         De geselecteerde route heeft als beginstation ${route.start_station} en als eindstation ${route.end_station}. 
