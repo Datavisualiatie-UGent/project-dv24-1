@@ -2,7 +2,8 @@ SELECT
     arrivals.station,
     arrivals.delay,
     arrivals.count as arrival_count,
-    departures.count as departure_count
+    departures.count as departure_count,
+    difference.count as difference_count
 
 FROM (
     SELECT
@@ -35,7 +36,21 @@ FULL JOIN (
 
     GROUP BY round(s1.departure_delay / 60), station
 ) AS departures
-
 ON arrivals.delay = departures.delay AND arrivals.station = departures.station
+
+FULL JOIN (
+    SELECT
+        count(round((s1.departure_delay - s1.arrival_delay) / 60)) as count,
+        round((s1.departure_delay - s1.arrival_delay) / 60) as delay,
+        s1.station_id as station
+
+    FROM
+        public.stops s1
+
+    WHERE s1.departure_delay NOTNULL AND s1.arrival_delay NOTNULL
+
+    GROUP BY round((s1.departure_delay - s1.arrival_delay) / 60), station
+) AS difference
+ON difference.delay = departures.delay AND difference.station = departures.station
 
 WHERE arrivals.station IS NOT NULL AND departures.station IS NOT NULL

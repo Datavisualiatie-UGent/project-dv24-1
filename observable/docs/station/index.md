@@ -53,9 +53,23 @@ function getDistribution(station, datatype) {
                 return elem;
             });
     } else if (datatype.type === "ADDITIONAL_DELAY") {
-        return [];
+        return distribution
+            .filter(elem => elem.station == station)
+            .map(elem => {
+                return {
+                    count: elem.difference_count,
+                    delay: elem.delay,
+                }
+            })
     } else if (datatype.type === "REDUCED_DELAY") {
-        return [];
+        return distribution
+            .filter(elem => elem.station == station)
+            .map(elem => {
+                return {
+                    count: elem.difference_count,
+                    delay: elem.delay * (-1),
+                }
+            })
     } else {
         throw new Error("Invalid datatype");
     }
@@ -179,6 +193,14 @@ function getTrainLines(station, datatype) {
 
 ```html
 <style>
+    #observablehq-center {
+        padding: 0 !important;
+    }
+
+    p {
+        max-width: 100vw !important;
+    }
+    
     .navbar {
         position: sticky;
         top: 0;
