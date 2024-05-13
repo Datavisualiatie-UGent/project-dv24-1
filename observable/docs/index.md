@@ -70,7 +70,7 @@ while (index < stations.length) {
 <div class="grid grid-cols-2" id="cols" style="align-items: center">
     <div>
         <h1>Stations in België</h1>
-        <p>Dagelijk nemen gemiddeld 750.000 mensen de trein. Om dit mogelijk te maken rijden elke dag 3800 treinen doorheen de 550 stations verspreid in België. Aangezien zoveel mensen hiervan afhankelijk zijn, is het echter belangrijk dat dit systeem efficiënt werkt zodat de treinen betrouwbaar kunnen rijden en iedereen op zijn bestemming geraakt. Hier willen we een kijkje nemen naar deze efficiëntie op alle niveaus van het treinverkeer. 
+        <p>Dagelijks nemen gemiddeld 750.000 mensen de trein. Om dit mogelijk te maken rijden elke dag 3800 treinen doorheen de 550 stations verspreid in België. Aangezien zoveel mensen hiervan afhankelijk zijn, is het echter belangrijk dat dit systeem efficiënt werkt zodat de treinen betrouwbaar kunnen rijden en iedereen op zijn bestemming geraakt. Hier willen we een kijkje nemen naar deze efficiëntie op alle niveaus van het treinverkeer. 
         </p>
         <p>
 De niveaus die we zullen bekijken zijn: specifieke stations, specifieke routes en overkoepelend over alle stations elk te vinden op hun respectievelijke pagina.
@@ -140,7 +140,7 @@ Deze zijn gesorteerd in oplopende volgorde.
 <div class="grid grid-cols-2" style="height: 1000px">
     <div class="card" style="overflow-y: scroll; height: 1000px">
         <div>
-            <p>Hier zien we de gemiddelde vertraging bij aankomst. Er zijn slechts 2 station waarbij treinen gemiddeld te vroeg aankomen.</p> <br><br><br>
+            <p>Hier zien we de gemiddelde vertraging bij aankomst. Er zijn slechts 2 stations waarbij treinen gemiddeld te vroeg aankomen.</p> <br><br><br>
             <br>
             ${Graphs.average_delays(avg_arr_delays_csv, true, 70)}
         </div>
