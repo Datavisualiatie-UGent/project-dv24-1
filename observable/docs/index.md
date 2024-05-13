@@ -3,6 +3,10 @@
 import {map_route} from "./components/map_route.js";
 import * as Graphs from "./graphs/index.js"
 
+const generalData = await FileAttachment("./data/general/general.csv")
+    .csv({typed: true})
+    .then(data => data[0]); 
+
 const stations = await FileAttachment("./data/general/stations.csv")
     .csv({typed: true});
 
@@ -99,6 +103,36 @@ document.getElementById("cols").appendChild(div);
 ```
 
 ```html
+<h2>Algemene cijfers</h2>
+
+<div class="grid grid-cols-2">
+  <div class="card">
+    <h2>Gemiddelde vertraging</h2>
+    <h3>${Math.round(generalData["avg_arrival_delay_s"])} seconden bij aankomst,
+      ${Math.round(generalData["avg_departure_delay_s"])} seconden bij vertrek.</h3>
+  </div>
+  <div class="card">
+    <h2>Totale vertraging</h2>
+    <h3>${Math.round(generalData["sum_arrival_delay_s"] / 3600)} uren bij aankomst,
+      ${Math.round(generalData["sum_departure_delay_s"] / 3600)} uren bij vertrek.</h3>
+  </div>
+  <div class="card">
+    <h2>Aantal treinen</h2>
+    <h3>${generalData["arrival_count"]} aankomsten,
+      ${generalData["departure_count"]} vertrekken.</h3>
+  </div>
+  <div class="card">
+    <h2>Gemiddelde efficiëntie</h2>
+    <h3>Treinen verliezen gemiddeld ${-Math.round(generalData["avg_time_saving_s"])} seconden per stop.</h3>
+  </div>
+  <div class="card">
+    <h2>Totale efficiëntie</h2>
+    <h3>Treinen verloren in totaal ${-Math.round(generalData["sum_time_saving_s"] / 3600)} uren.</h3>
+  </div>
+</div>
+
+<hr />
+
 <h2>Gemiddelde vertragingen aan stations</h2>
 Om te beginnen zullen we kijken naar de gemiddelde vertragingen aan stations bij zowel aankomst als vertrek.
 Deze zijn gesorteerd in oplopende volgorde.
