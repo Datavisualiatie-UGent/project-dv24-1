@@ -6,6 +6,11 @@
 
 This repository contains the source code for the Regular Express project, a project for the course datavisualisation at Ugent 2023-2024, which aims to provide a comprehensive analysis of train delays in Belgium. The project uses data provided by Infrabel ([dataset](https://opendata.infrabel.be/explore/dataset/ruwe-gegevens-van-stiptheid-d-1/information/?disjunctive.train_no&disjunctive.relation&disjunctive.train_serv&disjunctive.line_no_dep&disjunctive.relation_direction&disjunctive.ptcar_lg_nm_nl&disjunctive.line_no_arr)) to generate insights and visualizations that can be used to improve the efficiency of the Belgian railway system.
 
+### Important
+
+Observable does not have the same behaviour in all browsers. A modern version of firefox and chrome works, however older versions give errors on certain plots, safari is also unable to display certain plots.
+ We were unable to find what browser versions are compatible with the observable framework but these are the ones we tested.
+
 ### Project Goals
 
 The goals we aim to achieve with this project fall into several categories:

@@ -1,3 +1,8 @@
+---
+theme: dark
+toc: true
+---
+
 ```js
 
 import {map_route} from "../components/map_route.js";

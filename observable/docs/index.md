@@ -1,3 +1,8 @@
+---
+theme: dark
+toc: true
+---
+
 ```js
 
 import {map_route} from "./components/map_route.js";
@@ -55,7 +60,6 @@ while (index < stations.length) {
 
 
 ```
-
 ```html
 <style>
     #observablehq-center {

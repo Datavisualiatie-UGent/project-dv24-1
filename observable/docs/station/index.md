@@ -1,3 +1,8 @@
+---
+theme: dark
+toc: true
+---
+
 ```js
 import * as Graphs from "../graphs/index.js"
 ```
