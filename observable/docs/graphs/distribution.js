@@ -7,11 +7,14 @@ export function distribution(data) {
     return Plot.barY(data, {
         x: "delay",
         y: "count",
-        fill: "#6699ff"
+        fill: "#6699ff",
+        tip: true,
     }).plot({
         width: 1200,
-        height: 200,
-        x: { label: "Vertraging in minuten" },
-        y: { label: "Aantal treinen in percent" },
+        height: 230,
+        marginLeft: 60,
+        marginBottom: 40,
+        x: { label: "Vertraging" },
+        y: { label: "Aantal" },
     });
 }

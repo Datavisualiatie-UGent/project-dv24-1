@@ -1,0 +1,2 @@
+avg_departure_delay_s,sum_departure_delay_s,avg_arrival_delay_s,sum_arrival_delay_s,arrival_count,departure_count,avg_time_saving_s,sum_time_saving_s
+156.3714916732108044,2789330900,142.4568751621853324,2537907267,17815267,17837848,-19.411558158218693,-327921859

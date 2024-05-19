@@ -22,24 +22,29 @@ export function week(data) {
         input[index].value = elem.value;
     });
 
+    const weekday = {0: "Maandag", 1: "Dinsdag", 2: "Woensdag", 3: "Donderdag",
+        4: "Vrijdag", 5: "Zaterdag", 6: "Zondag"}
+
     return Plot.plot({
-        width: 500,
-        height: 1000,
         padding: 0,
+        width: 1200,
+        height: 450,
+        marginBottom: 50,
+        marginLeft: 80,
         grid: true,
-        x: { axis: "top", label: "" },
-        y: { label: "" },
+        y: { label: "Weekdag", domain: Object.values(weekday) },
+        x: { label: "Uur" },
         color: { type: "linear", scheme: "blues" },
         marks: [
             Plot.cell(input, {
-                x: "day",
-                y: "hour",
+                y: (d) => weekday[d.day],
+                x: "hour",
                 fill: "value",
                 inset: 0.5,
             }),
             Plot.text(input, {
-                x: "day",
-                y: "hour",
+                y: (d) => weekday[d.day],
+                x: "hour",
                 fill: "black",
                 title: "title",
                 text: (d) => d.value ? Number.parseInt(d.value).toFixed(0) : "",
